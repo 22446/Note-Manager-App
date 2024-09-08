@@ -1,0 +1,83 @@
+<section class="vh-100 d-flex overflow-auto">
+  <div class="d-flex align-items-center">
+    <p-sidebar [(visible)]="sidebarVisible">
+        <h3 class="text-bold text-warning">Note App <i class="fa-solid fa-note-sticky"></i></h3>
+        <button class="btn btn-danger mt-3 p-2" (click)="logut()">
+          Log Out
+        </button>
+    </p-sidebar>
+    <button class="btn btn-dark btnz" (click)="sidebarVisible = true"><i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+    <div class="container">
+    <div class="justify-content-center">
+    <button (click)="showDialog()" class="btn btn-dark mt-3">ADD NEW NOTE <i class="fa-solid fa-note-sticky"></i></button>
+    <p-dialog [formGroup]="Addnote" header="Add Note" [modal]="true" [(visible)]="visible" >
+
+        <div class="mt-2">
+            <input formControlName="title"  type="text" class="form-control"  placeholder="Title">
+            @if(Addnote.get('title')?.errors&&Addnote.get('title')?.touched){
+              @if(Addnote.get('title')?.getError('required')){
+            <small  class="form-text text-danger">title field is requiered</small>
+              }
+            }
+          </div>
+          <div class="mt-2">
+            <textarea  formControlName="content" class="form-control" placeholder="Content"></textarea>
+            @if(Addnote.get('content')?.errors&&Addnote.get('content')?.touched){
+              @if(Addnote.get('content')?.getError('required')){
+            <small  class="form-text text-danger">content field is requiered</small>
+              }
+            }
+          </div>
+        <div class="d-flex justify-content-end mt-2 gap-2">
+            <button label="Cancel" class="btn btn-danger ronded" (click)="visible = false">Cancel</button>
+            <button label="Save" class="btn btn-success ronded" [disabled]="isSubmit||Addnote.invalid" (click)="visible = false" (click)="AddNewNotes()">Save</button>
+          
+        </div>
+    </p-dialog>
+</div>
+
+    <div class="row mt-3 mx-0">
+      @for(item of _NoteData;track item._id){
+        <div class="col-lg-4 col-md-6 col-12 d-flex justify-content-center align-items-center  gy-2">
+            <div class="card w-100">
+                <div class="card-body">
+                  <h5 class="card-title">{{item.title}}</h5>
+                  <p class="card-text">{{item.content}}</p>
+                  <button (click)="showDialogUp(item._id,item)"  class="card-link btn btn-warning">Update</button>
+                  <a class="card-link btn btn-danger"(click)="DeletetheNotes(item._id)">Delete</a>
+
+                </div>
+              </div>
+        </div>
+      }
+    </div>
+    </div>
+
+</section>
+<div class="justify-content-center">
+  <p-dialog [formGroup]="Addnote2" header="Update" [modal]="true" [(visible)]="visibleUp" [style]="{ width: '25rem' }">
+
+      <div class="mt-2">
+          <input formControlName="title"  type="text" class="form-control"  placeholder="Title">
+          @if(Addnote2.get('title')?.errors&&Addnote2.get('title')?.touched){
+            @if(Addnote2.get('title')?.getError('required')){
+          <small  class="form-text text-danger">title field is requiered</small>
+            }
+          }
+        </div>
+        <div class="mt-2">
+          <input type="text"  formControlName="content" class="form-control" placeholder="Content">
+          @if(Addnote2.get('content')?.errors&&Addnote2.get('content')?.touched){
+            @if(Addnote2.get('content')?.getError('required')){
+          <small  class="form-text text-danger">content field is requiered</small>
+            }
+          }
+        </div>
+      <div class="d-flex justify-content-end mt-2 gap-2">
+          <button  class="btn btn-danger ronded" (click)="visibleUp = false">Cancel</button>
+          <button type="submit" class="btn btn-success ronded" [disabled]="isSubmit||Addnote2.invalid" (click)="visibleUp = false" (click)="UpdateNotess(NoteId)">Update</button>
+
+      </div>
+  </p-dialog>
+</div>

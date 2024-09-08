@@ -1,0 +1,36 @@
+<section class="mt-md-5 mt-0  w-75 mx-auto shadow p-3">
+    <div class="container">
+        <h1 class="text-center fw-bloder my-2">Login Now</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="./assets/images/10124049.jpg" class="w-100" alt="">
+            </div>
+            <div class="col-md-6">
+              <form [formGroup]='LoginGroup' (ngSubmit)="SignUpSubmmit()">
+                  <div class="mt-2">
+                    <label>Email address</label>
+                    <input  formControlName='email' type="email" class="form-control"  placeholder="Enter email">
+                    @if(LoginGroup.get('email')?.errors&&LoginGroup.get('email')?.touched){
+                      @if(LoginGroup.get('email')?.getError('required')){
+                    <small  class="form-text text-danger">email field is requiered</small>
+                      }
+                    }
+                  </div>
+                  <div class="mt-2">
+                    <label>Password</label>
+                    <input formControlName='password' type="password" class="form-control" placeholder="Password">
+                    @if(LoginGroup.get('password')?.errors&&LoginGroup.get('password')?.touched){
+                      @if(LoginGroup.get('password')?.getError('required')){
+                    <small  class="form-text text-danger">password field is requiered</small>
+                      }
+                    }
+                  </div>
+                  <div class="d-flex py-2 flex-column">
+                  <a class="py-2" routerLink="/register">Dont Have An Acount Sign-up Now</a>
+                  <button type="submit" [disabled]="isSubmit||LoginGroup.invalid" class="btn btn-primary mt-2">Submit</button>
+                  </div>
+                </form>
+          </div>
+      </div>
+    </div>
+</section>

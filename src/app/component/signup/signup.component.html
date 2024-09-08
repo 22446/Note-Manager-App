@@ -1,0 +1,73 @@
+<section class="mt-5 w-75 mx-auto shadow p-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="./assets/images/10124049.jpg" class="w-100" alt="">
+            </div>
+            <div class="col-md-6">
+              <form [formGroup]='regsiterGroup' (ngSubmit)="SignUpSubmmit()">
+                  <div class="mt-2">
+                    <label>Name</label>
+                    <input formControlName='name' type="text"  class="form-control" placeholder="Enter Name">
+                    @if(regsiterGroup.get('name')?.errors&&regsiterGroup.get('name')?.touched){
+                      @if(regsiterGroup.get('name')?.getError('required')){
+                    <small  class="form-text text-danger">name field is requiered</small>
+                      }@if((regsiterGroup.get('name')?.getError('minlength'))){
+                    <small  class="form-text text-danger">Name Min Length 3</small>
+
+                      }@if((regsiterGroup.get('name')?.getError('maxlength'))){
+                        <small  class="form-text text-danger">Name max Length 20</small>
+    
+                          }
+                    }
+                  </div>
+                  <div class="mt-2">
+                    <label>Email address</label>
+                    <input  formControlName='email' type="email" class="form-control"  placeholder="Enter email">
+                    @if(regsiterGroup.get('email')?.errors&&regsiterGroup.get('email')?.touched){
+                      @if(regsiterGroup.get('email')?.getError('required')){
+                    <small  class="form-text text-danger">email field is requiered</small>
+                      }
+                    }
+                  </div>
+                  <div class="mt-2">
+                    <label>Password</label>
+                    <input formControlName='password' type="password" class="form-control" placeholder="Password">
+                    @if(regsiterGroup.get('password')?.errors&&regsiterGroup.get('password')?.touched){
+                      @if(regsiterGroup.get('password')?.getError('required')){
+                    <small  class="form-text text-danger">password field is requiered</small>
+                      }@if((regsiterGroup.get('password')?.getError('pattern'))){
+                    <small  class="form-text text-danger">must be at least 6 chars</small>
+                       }
+                    }
+                  </div>
+                  <div class="mt-2">
+                      <label>Age</label>
+                      <input formControlName='age' type="number"  class="form-control" placeholder="Enter age">
+                      @if(regsiterGroup.get('age')?.errors&&regsiterGroup.get('age')?.touched){
+                        @if(regsiterGroup.get('age')?.getError('required')){
+                      <small  class="form-text text-danger">age field is requiered</small>
+                        }
+                      }
+
+                  </div>
+                  <div class="mt-2">
+                      <label>Phone number</label>
+                      <input type="tel" class="form-control" formControlName='phone' placeholder="Enter phone">
+                      @if(regsiterGroup.get('phone')?.errors&&regsiterGroup.get('phone')?.touched){
+                        @if(regsiterGroup.get('phone')?.getError('required')){
+                      <small  class="form-text text-danger">phone field is requiered</small>
+                        }@if((regsiterGroup.get('phone')?.getError('pattern'))){
+                          <small  class="form-text text-danger"> accept only egypt phone numbers</small>
+                             }
+                      }
+                   </div>
+                   <div class="d-flex py-2 flex-column">
+                  <a class="py-2" routerLink="/login">Have An Acount Login Now</a>
+                  <button type="submit" [disabled]="isSubmit||regsiterGroup.invalid" class="btn btn-primary mt-2">Submit</button>
+                   </div>
+                </form>
+          </div>
+      </div>
+    </div>
+</section>
